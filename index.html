@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>RSS Feed Display</title>
-    <!-- Add CSS here -->
+    <title>Your Website Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-    <div id="rss-feeds">Loading...</div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            var rssUrl = 'https://anchor.fm/s/eff9f688/podcast/rss';
-            var apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
+<div id="rss-feeds"></div>
 
-            $.getJSON(apiUrl, function(data) {
-                var output = "<ul>";
-                $.each(data.items, function(key, val) {
-                    output += "<li><a href='" + val.link + "'>" + val.title + "</a></li>";
-                });
-                output += "</ul>";
-                $("#rss-feeds").html(output);
-            }).fail(function() {
-                console.log("An error has occurred.");
+<script>
+    $(document).ready(function() {
+        var rss_url = encodeURIComponent('https://anchor.fm/s/eff9f688/podcast/rss');
+        $.getJSON('https://api.rss2json.com/v1/api.json?rss_url=' + rss_url, function(data) {
+            var output = "<ul>";
+            $.each(data.items, function(key, val) {
+                output += "<li><a href='" + val.link + "'>" + val.title + "</a></li>";
             });
+            output += "</ul>";
+            $("#rss-feeds").html(output);
         });
-    </script>
+    });
+</script>
+
 </body>
 </html>
