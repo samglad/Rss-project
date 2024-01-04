@@ -2,28 +2,28 @@
 <html>
 <head>
     <title>RSS Feed Display</title>
-    <style>
-        /* Add your CSS styles here */
-    </style>
+    <!-- Add CSS here -->
 </head>
 <body>
     <div id="rss-feeds">Loading...</div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-    // JavaScript to fetch and display the RSS feed
-    $(document).ready(function() {
-        $.getJSON('fetch_data.php', function(data) {
-            var output = "<ul>";
-            $.each(data.channel.item, function(key, val) {
-                output += "<li><a href='" + val.link + "'>" + val.title + "</a></li>";
+        $(document).ready(function() {
+            var rssUrl = 'https://anchor.fm/s/eff9f688/podcast/rss';
+            var apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
+
+            $.getJSON(apiUrl, function(data) {
+                var output = "<ul>";
+                $.each(data.items, function(key, val) {
+                    output += "<li><a href='" + val.link + "'>" + val.title + "</a></li>";
+                });
+                output += "</ul>";
+                $("#rss-feeds").html(output);
+            }).fail(function() {
+                console.log("An error has occurred.");
             });
-            output += "</ul>";
-            $("#rss-feeds").html(output);
-        }).fail(function() {
-            console.log("An error has occurred.");
         });
-    });
     </script>
 </body>
 </html>
