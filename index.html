@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>RSS Feed Embed</title>
+    <title>RSS Feed Display</title>
     <style>
-        /* Add your CSS here */
+        /* Add your CSS styles here */
     </style>
 </head>
 <body>
-    <div id="rss-feeds">
-        <?php
-        // Check if the feed is loaded
-        if ($rss) {
-            // Output the titles and links from the RSS feed
-            foreach ($rss->channel->item as $item) {
-                echo "<div><a href='" . $item->link . "'>" . $item->title . "</a></div>";
-            }
-        } else {
-            echo "Failed to load the RSS feed. Please check the URL and your server settings.";
-        }
-        ?>
-    </div>
+    <div id="rss-feeds">Loading...</div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    // JavaScript to fetch and display the RSS feed
+    $(document).ready(function() {
+        $.getJSON('fetch_data.php', function(data) {
+            var output = "<ul>";
+            $.each(data.channel.item, function(key, val) {
+                output += "<li><a href='" + val.link + "'>" + val.title + "</a></li>";
+            });
+            output += "</ul>";
+            $("#rss-feeds").html(output);
+        }).fail(function() {
+            console.log("An error has occurred.");
+        });
+    });
+    </script>
 </body>
 </html>
