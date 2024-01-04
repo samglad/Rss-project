@@ -1,26 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Your Website Title</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-</head>
-<body>
-
-<div id="rss-feeds"></div>
-
-<script>
-    $(document).ready(function() {
-        var rss_url = encodeURIComponent('https://anchor.fm/s/eff9f688/podcast/rss');
-        $.getJSON('https://api.rss2json.com/v1/api.json?rss_url=' + rss_url, function(data) {
-            var output = "<ul>";
-            $.each(data.items, function(key, val) {
-                output += "<li><a href='" + val.link + "'>" + val.title + "</a></li>";
-            });
-            output += "</ul>";
-            $("#rss-feeds").html(output);
-        });
-    });
-</script>
-
-</body>
-</html>
+<div style="position: relative; width: 500px; height: 500px;">
+    <iframe src="https://podcasters.spotify.com/pod/show/martha-mcanlis/episodes/Through-Deep-Waters-e2e0ev8" style="position: absolute; height: 550px; width: 500px; top: -25px;"></iframe>
+    <div style="position: absolute; top: 0; height: 25px; width: 100%; background: white;"></div> <!-- Top Cover -->
+    <div style="position: absolute; bottom: 0; height: 25px; width: 100%; background: white;"></div> <!-- Bottom Cover -->
+</div>
